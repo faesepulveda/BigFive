@@ -1,0 +1,42 @@
+---
+title: "LET0001"
+author: "Fabián Sepúlveda"
+date: "08-11-2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(rio);require(dplyr);require(polycor);require(psych)
+```
+
+## Factores comunes de la personalidad
+
+En este estudio evaluaremos la presencia de factores comunes a la personalidad de las personas utilizando un cuestionario denominado Big Five.
+
+¿Será posible que existen dimensiones de la personalidad? para ello procederemos con un análisis exploratorio en el cual analizaremos cuantos factores o componentes en el cuestionario explican la mayor variabilidad en la respuesta, a continuación presentamos esto de manera gráfica a través de un Scree Plot:
+
+
+```{r pressure, echo=FALSE}
+setwd("C:/Users/faese/Documents/Universidad/2021-2/LET0000/GIT/BigFive/data")
+
+
+
+base <- rio::import("data.csv")
+
+base <- base[, 8:57]
+base <- as_tibble(sapply(base, as.numeric))
+
+#quest <- as_tibble(lapply(base, factor, order = TRUE))
+#test.hetcor <- hetcor(quest, use = "pairwise.complete.obs")
+#print('ok')
+#corPlot(test.hetcor$correlations)
+####################
+
+scree(base, factors = TRUE, hline = -1)
+abline(h = 2, col = 'red')
+
+```
+
+De este grafico podemos concluir que luego del quinto factor la varianza explicada comienza a ser marginal, por lo que podemos empezar a conjeturar que hay 5 dimensiones preponderantes en la personalidad de quienes responden. Esto a su vez se visualiza como un "codo" determinado por la linea roja del grafico 1.
+
